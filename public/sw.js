@@ -1,4 +1,4 @@
-const CACHE_NAME = "scan-everything-v1";
+const CACHE_NAME = "scan-everything-v2";
 const APP_SHELL = ["/", "/manifest.webmanifest", "/icons/icon.svg"];
 
 self.addEventListener("install", (event) => {
@@ -32,7 +32,8 @@ self.addEventListener("fetch", (event) => {
   if (
     request.method !== "GET" ||
     url.origin !== self.location.origin ||
-    url.pathname.startsWith("/api/")
+    url.pathname.startsWith("/api/") ||
+    url.pathname.startsWith("/_next/")
   ) {
     return;
   }
@@ -44,6 +45,18 @@ self.addEventListener("fetch", (event) => {
         caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone));
         return response;
       })
-      .catch(() => caches.match(request).then((cached) => cached ?? caches.match("/")))
+      .catch(() =>
+        caches.match(request).then((cached) => {
+          if (cached) {
+            return cached;
+          }
+
+          if (request.mode === "navigate") {
+            return caches.match("/");
+          }
+
+          return Response.error();
+        })
+      )
   );
 });
