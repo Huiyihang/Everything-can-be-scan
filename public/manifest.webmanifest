@@ -1,0 +1,27 @@
+{
+  "name": "万物皆可扫",
+  "short_name": "万物皆可扫",
+  "description": "拍下身边任何物品，听听它今天想说什么。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f8fb",
+  "theme_color": "#19b59f",
+  "categories": ["utilities", "photo", "shopping"],
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
